@@ -12,18 +12,22 @@ class Payment extends Model
     protected $table = 'payments';
 
     protected $fillable = [
+        'payment_id',
         'name',
         'email',
         'phone',
-        // 'address',
-        // 'city',
-        // 'country',
-        // 'zip_code',
+        'address',
+        'city',
+        'zip_code',
+        'country',
         'payment_method',
-        'payment_id',
         'currency',
         'amount',
-        'transaction_id',
         'status',
+        'payment_date',
+        'user_id',
+        'reference_id',
+        'card_id',
+        'transaction_id',
     ];
 }

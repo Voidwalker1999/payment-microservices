@@ -12,20 +12,32 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->integer('payment_id')->primary();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
-            // $table->text('address')->nullable();
-            // $table->string('city');
-            // $table->string('country');
-            // $table->string('zip_code');
+            $table->integer('phone');
+            $table->text('address')->nullable();
+            $table->string('city');
+            $table->integer('zip_code');
+            $table->string('country');
             $table->string('payment_method');
-            $table->string('payment_id');
             $table->string('currency');
-            $table->string('amount');
-            $table->string('transaction_id');
+            $table->decimal('amount', 12, 2);
             $table->string('status');
+            $table->datetime('payment_date');
+            
+            $table->unsignedBigInteger('user_id'); // Add user_id column
+            $table->foreign('user_id')->references('id')->on('users'); // Create foreign key constraint
+
+            $table->unsignedBigInteger('reference_id'); // Add reference_id column
+            $table->foreign('reference_id')->references('id')->on('sales'); // Create foreign key constraint
+
+            $table->unsignedBigInteger('card_id'); // Add card_id column
+            $table->foreign('card_id')->references('id')->on('card_info'); // Create foreign key constraint
+
+            $table->unsignedBigInteger('transaction_id'); // Add transaction_id column
+            $table->foreign('transaction_id')->references('id')->on('inventory_transaction'); // Create foreign key constraint
+            
             $table->timestamps();
         });
     }

@@ -30,15 +30,24 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'payment_id' => 'required|integer',
             'name' => 'required|string|max:191',
-            'email' => 'required|email|max:100',
+            'email' => 'required|email|max:191',
             'phone' => 'required|digits:10',
-            'payment_method' => 'required|string|max:50',
-            'payment_id' => 'required|integer|max:1000',
-            'currency' => 'required|string|max:1000',
-            'amount' => 'required|string|max:1000',
-            'transaction_id' => 'required|string|max:1000',
-            'status' => 'required|string|max:20',
+            'address' => 'required|string|max:191',
+            'city' => 'required|string|max:191',
+            'zip_code' => 'required|digits:6',
+            'country' => 'required|string|max:191',
+            'payment_method' => 'required|string|max:191',
+            'payment_id' => 'required|integer',
+            'currency' => 'required|string',
+            'amount' => 'required|numeric',
+            'status' => 'required|string|max:191',
+            'payment_date' => 'required|date',
+            'user_id' => 'required|integer',
+            'reference_id' => 'required|integer',
+            'card_id' => 'required|integer',
+            'transaction_id' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -49,6 +58,7 @@ class PaymentController extends Controller
         }else{
 
             $payment = Payment::create([
+                'payment_id' => $request->payment_id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,                
@@ -58,6 +68,11 @@ class PaymentController extends Controller
                 'amount' => $request->amount,
                 'transaction_id' => $request->transaction_id,
                 'status' => $request->status,
+                'payment_date' => $request->payment_date,
+                'user_id' => $request->user_id,
+                'reference_id' => $request->reference_id,
+                'card_id' => $request->card_id,
+                'transaction_id' => $request->transaction_id,
             ]);
 
             if($payment){
@@ -115,6 +130,7 @@ class PaymentController extends Controller
 
         if($payment){
             $payment->update([
+                'payment_id' => $request->payment_id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,                
@@ -124,6 +140,11 @@ class PaymentController extends Controller
                 'amount' => $request->amount,
                 'transaction_id' => $request->transaction_id,
                 'status' => $request->status,
+                'payment_date' => $request->payment_date,
+                'user_id' => $request->user_id,
+                'reference_id' => $request->reference_id,
+                'card_id' => $request->card_id,
+                'transaction_id' => $request->transaction_id,
             ]);
 
             return response()->json([

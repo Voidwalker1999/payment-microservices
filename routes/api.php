@@ -20,4 +20,3 @@ Route::delete('payments/{id}/delete',[PaymentController::class, 'destroy']);
 
 
 
-// php artisan serve
